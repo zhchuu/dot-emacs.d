@@ -1,5 +1,9 @@
-;;; init-elpa.el --- Settings and helpers for package.el (ELPA) -*- lexical-binding: t -*-
+;;; init-elpa.el --- Settings and helpers for package.el (ELPA)
 ;;; Commentary:
+
+;; Initialize the Emacs packages manager MELPA.
+;; Download package by require-package function.
+
 ;;; Code:
 
 ;; Download package.el and put to lisp/ if Emacs version < 24

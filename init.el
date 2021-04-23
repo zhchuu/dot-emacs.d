@@ -1,4 +1,4 @@
-;;; init.el --- Load the full configuration -*- lexical-binding: t -*-
+;;; init.el --- Load the full configuration
 ;;; Commentary:
 
 ;; Load all configuration
@@ -12,37 +12,24 @@
 
 ;; Add lisp/ directory to load-path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "lisp/langs" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "lisp/themes" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "inits" user-emacs-directory))
 
 ;; Requires
 (require 'init-elpa)
 (require 'init-global-settings)
+(require 'init-neotree)
+(require 'init-autopair)
 (require 'init-theme)
 (require 'init-flycheck)
-(require 'init-autopair)
-(require 'init-neotree)
-;; (require 'init-auto-complete)
-;; (require 'init-ac-source)
-;; (require 'init-autopep8)
-;; (require 'init-yasnippet)
-;; (require 'init-markdown-mode)
+(require 'init-c-cpp)
+(require 'init-py)
+
+;; TODO:
+;; 1. Code navigation in C/C++.
+;; 2. The compatibility of ECB and flycheck errors window.
+;; 3. Latex mode.
+;; 4. Column indicator in Emacs 27.
 
 (provide 'init)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" default)))
- '(markdown-command "/usr/bin/pandoc")
- '(package-selected-packages (quote (elpy flycheck))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 ;;; init.el ends here

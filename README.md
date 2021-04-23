@@ -10,17 +10,14 @@ The configuration should run on Emacs 25.3.1 or greater.
     | README.md
     | LICENSE
     | init.el
-    | lisp
-        | color-theme.el            # Themes collection
+    | inits
         | init-global-settings.el   # Some basic global settings
         | init-theme.el             # Initialize theme
         | init-elpa.el              # Initialize ELPA
         | init-xxx.el               # init-[package_name].el
+    | lisp
+        | color-theme.el            # Themes collection
         | ...                       # More
-        | langs
-            | my-python-mode.el     # Configuration of python mode
-            | my-xxx-mode.el        # my-[language_name]-mode.el
-            | ...                   # More
         | themes
             | some-theme.el         # Themes
             | ...                   # More

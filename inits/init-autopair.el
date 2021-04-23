@@ -1,11 +1,12 @@
-;;; init-autopair.el --- Settings of autopair -*- lexical-binding: t -*-
+;;; init-autopair.el --- Setting of autopair
 ;;; Commentary:
 
 ;; Autopair is an extension to the Emacs text editor that automatically pairs braces and quotes
 
 ;;; Code:
 
-(require-package 'autopair)
+;; This repository has been archived by the owner.
+;; (require-package 'autopair)
 
 (require 'autopair)
 (autopair-global-mode)

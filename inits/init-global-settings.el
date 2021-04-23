@@ -1,13 +1,14 @@
-;;; init-global-setting.el --- Load global setting -*- lexical-binding: t -*-
+;;; init-global-setting.el --- Load global setting
 ;;; Commentary:
+
+;; Some global settings for all file types.
+
 ;;; Code:
 
+;; no startup msg (GNU emacs buffer)
+(setq inhibit-startup-message t)
+
 ;; Tab width
-;; Some variables in Emacs are "buffer-local", meaning that
-;; each buffer is allowed to have a separate value for that
-;; variable that overrides the global default.
-;; setq sets its local value in the current buffer and setq-default sets the global default value
-(setq c-basic-offset 4)
 (setq default-tab-width 4)
 
 ;; Always show line number
@@ -23,12 +24,10 @@
 ;; Set cursor
 (setq-default cursor-type 'bar)
 (global-hl-line-mode 1)
-(set-face-foreground 'highlight nil) ;; Keep the sytax highlighting
-;; (set-face-background 'hl-line "3e4446")
 
 ;; Close toolbar and scroll bar
 (tool-bar-mode 0)
-(menu-bar-mode 0)
+; (menu-bar-mode 0)
 (scroll-bar-mode 0)
 
 ;; Display time
@@ -39,9 +38,6 @@
 
 ;; Set title
 (setq frame-title-format "emacs@%b")
-
-;; Grammar highlighting
-(setq global-front-lock-mode t)
 
 ;; Enable eamcs share copy-paste with other applications
 (setq x-select-enable-clipboard t)
@@ -78,36 +74,41 @@
 ;; (define-key ctl-x-4-map "t" 'toggle-window-split)
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 
-;; (setq fci-rule-width 1)
-;; (setq fci-rule-color "darkblue")
-
-;; python mode
-(autoload 'zhchuu/python "my-python-mode")
-(add-hook 'python-mode-hook 'zhchuu/python)
-
-;; latex mode
-(add-hook 'latex-mode-hook '(lambda() (set-fill-column 80)))
-(add-hook 'latex-mode-hook 'turn-on-auto-fill)
+;; Easy to set keys
+(defun zhchuu/local-set-keys (key-commands)
+  "Set multiple local bindings with KEY-COMMANDS list."
+  (let ((local-map (current-local-map)))
+    (dolist (kc key-commands)
+      (define-key local-map
+	(kbd (car kc))
+	(cdr kc)))))
 
 ;; Code fold or unfold
 (add-hook 'c-mode-common-hook   'hs-minor-mode)
-(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 (add-hook 'java-mode-hook       'hs-minor-mode)
-(add-hook 'ess-mode-hook        'hs-minor-mode)
-(add-hook 'perl-mode-hook       'hs-minor-mode)
-(add-hook 'sh-mode-hook         'hs-minor-mode)
 (add-hook 'python-mode-hook     'hs-minor-mode)
+;; (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+;; (add-hook 'ess-mode-hook        'hs-minor-mode)
+;; (add-hook 'perl-mode-hook       'hs-minor-mode)
+;; (add-hook 'sh-mode-hook         'hs-minor-mode)
 
 ;; F4 to fold and unfold code
 (global-set-key [f4] 'hs-toggle-hiding)
 
+(setq fci-rule-width 1)
+(setq fci-rule-color "darkblue")
+
+;; latex mode
+;; (add-hook 'latex-mode-hook '(lambda() (set-fill-column 80)))
+;; (add-hook 'latex-mode-hook 'turn-on-auto-fill)
+
 ;; column indicator
 ;; fci-mode causes the bug of showing two popup windows when complementing code
 ;; Will be replaced by display-fill-column-indicator-mode in Emacs 27
-(require 'fill-column-indicator)
-(add-hook 'c-mode-common-hook   'fci-mode)
-(add-hook 'python-mode-hook     'fci-mode)
-(setq-default fci-rule-column 120)
+;; (require 'fill-column-indicator)
+;; (add-hook 'c-mode-common-hook   'fci-mode)
+;; (add-hook 'python-mode-hook     'fci-mode)
+;; (setq-default fci-rule-column 120)
 
 (provide 'init-global-settings)
 ;;; init-global-settings.el ends here
