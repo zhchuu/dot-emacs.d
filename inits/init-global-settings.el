@@ -1,49 +1,119 @@
-;;; init-global-setting.el --- Load global setting
+;;; init-global-settings.el --- Load global settings
 ;;; Commentary:
 
 ;; Some global settings for all file types.
 
 ;;; Code:
 
-;; no startup msg (GNU emacs buffer)
-(setq inhibit-startup-message t)
+;; Dump the custom-set-variables / custom-set-faces to the file rather than init.el
+(setq custom-file (concat user-emacs-directory "/custom.el"))
 
-;; Tab width
-(setq default-tab-width 4)
+;; Prevents loading emacs lisp mode automatically
+(setq initial-major-mode 'fundamental-mode)
 
-;; Always show line number
-(global-linum-mode 1)
-(setq linum-format "%3d\u2503")
+;; Set the frame title to display file path and name
+(setq frame-title-format '((:eval (if buffer-file-name)
+				  (abbreviate-file-name
+				   (buffer-filr-name))
+				  "%b")))
 
-;; Not to create backup file
-(setq make-backup-files nil)
+;; Disable startup msg (GNU emacs buffer)
+(setq inhibit-startup-screen t)
 
-;; C-k to kill whole line
-(global-set-key (kbd "C-K") 'kill-whole-line)
+;; Remove the beep
+(setq visible-bell t)
 
-;; Set cursor
-(setq-default cursor-type 'bar)
-(global-hl-line-mode 1)
+;; M-x package-install-selected-packages to install all packages
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(misterioso))                ;; Put the theme loading in the front to avoid overriding the setting below
+ '(ediff-split-windoe-function 'split-window-sensibly) ;; Split vertically or horizontally depending on window dimensions
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(package-selected-packages
+   '(lsp-mode yasnippet lsp-treemacs helm-lsp projectile flycheck company helm-xref helm-swoop helm-gtags dap-mode which-key elpy lsp-ui nyan-mode highlight-indent-guides highlight-indentation sql-indent dashboard all-the-icons smart-tab undo-tree rainbow-mode rainbow-delimiters neotree ag rg ace-window))
+ )
 
-;; Close toolbar and scroll bar
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "red" :height 2.0))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "orange" :height 1.8))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "yellow" :height 1.6))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "green" :height 1.4))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "blue" :height 1.2))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "violet" :height 1.1))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "purple" :height 1.0))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "black" :height 0.9))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "cyan" :height 0.8))))
+ '(aw-leading-char-face
+   ((t (:foreground "red" :weight normal :height 2.9))))
+ )
+
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Feature mode
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Show line number
+(if (> emacs-major-version 25)
+    (global-display-line-numbers-mode t)
+  (global-lineum-mode t))
+
+;; Close the toolbar and scroll bar
 (tool-bar-mode 0)
-; (menu-bar-mode 0)
-(scroll-bar-mode 0)
+;; (scroll-bar-mode 0)
 
 ;; Display time
 (display-time)
 
-;; Parenth completion mode
+;; Show matching parenth
 (show-paren-mode t)
 
-;; Set title
-(setq frame-title-format "emacs@%b")
+;; Show column number and file size
+(column-number-mode t)
+(size-indication-mode t)
 
-;; Enable eamcs share copy-paste with other applications
+;; Automatically insert the right matching bracket
+(electric-pair-mode t)
+
+;; Highlight the line
+(global-hl-line-mode t)
+(set-face-background 'hl-line "#3e4446")
+(set-face-foreground 'highlight nil)  ;; keep the syntax highlighting
+
+;; N spaces instead of a tab
+(setq-default indent-tabs-mode nil)
+
+;; Keeping buffers automatically up-to-date
+(global-auto-revert-mode t)
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Settings
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; C-k to kill the whole line
+(global-set-key (kbd "C-k") 'kill-whole-line)
+
+;; Not to create backup file
+(setq make-backup-files nil)
+
+;; Enable emacs share copy-paste with other application
 (setq x-select-enable-clipboard t)
 
-;; Auto append newline
+;; Auto append new line
 (setq require-final-newline t)
+
+;; Enable narrow-to-region command
+(put 'narrow-to-region 'disable nil)
+
+;; Set cursor
+(set-cursor-color "#ffffff")
 
 ;; Toggle window split
 (defun toggle-window-split ()
@@ -74,41 +144,84 @@
 ;; (define-key ctl-x-4-map "t" 'toggle-window-split)
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 
-;; Easy to set keys
-(defun zhchuu/local-set-keys (key-commands)
-  "Set multiple local bindings with KEY-COMMANDS list."
-  (let ((local-map (current-local-map)))
-    (dolist (kc key-commands)
-      (define-key local-map
-	(kbd (car kc))
-	(cdr kc)))))
+;; The default setting is too low for lsp-mode's needs
+;; due to the fact that client/server communication
+;; generates a lot of memory/garbage.
+(setq gc-cons-threshold 100000000)  ;; 100mb
 
-;; Code fold or unfold
-(add-hook 'c-mode-common-hook   'hs-minor-mode)
-(add-hook 'java-mode-hook       'hs-minor-mode)
-(add-hook 'python-mode-hook     'hs-minor-mode)
-;; (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
-;; (add-hook 'ess-mode-hook        'hs-minor-mode)
-;; (add-hook 'perl-mode-hook       'hs-minor-mode)
-;; (add-hook 'sh-mode-hook         'hs-minor-mode)
+;; Increase the amount of data which Emacs reads from
+;; the process. Again the emacs default is too low 4k
+;; considering that the some of the language server
+;; responses are in 800k - 3M range.
+(setq read-process-output-max (* 1024 1024))  ;; 1mb
 
-;; F4 to fold and unfold code
-(global-set-key [f4] 'hs-toggle-hiding)
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Some third-party mods are turned on by default
+;; so I put them in the global settings
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq fci-rule-width 1)
-(setq fci-rule-color "darkblue")
+;; Show hint of shortcut key
+(which-key-mode)
 
-;; latex mode
-;; (add-hook 'latex-mode-hook '(lambda() (set-fill-column 80)))
-;; (add-hook 'latex-mode-hook 'turn-on-auto-fill)
+;; Smart tab
+(use-package smart-tab
+  :config
+  (progn
+    (defun @-enable-smart-tab ()
+      (smart-tab-mode))
+    (add-hook 'prog-mode-hook '@-enable-smart-tab)))
 
-;; column indicator
-;; fci-mode causes the bug of showing two popup windows when complementing code
-;; Will be replaced by display-fill-column-indicator-mode in Emacs 27
-;; (require 'fill-column-indicator)
-;; (add-hook 'c-mode-common-hook   'fci-mode)
-;; (add-hook 'python-mode-hook     'fci-mode)
-;; (setq-default fci-rule-column 120)
+;; Undotree
+;; C-x u -> undo-tree-visualize
+(use-package undo-tree
+  :ensure t
+  :config
+  (progn
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-visualizer-diff t)))
+
+;; Rainbow mode
+(use-package rainbow-mode
+  :config
+  (progn
+    (defun @-enable-rainbow ()
+      (rainbow-mode t))
+    (add-hook 'prog-mode-hook '@-enable-rainbow)))
+
+;; Neotree
+(use-package neotree
+  :custom
+  (neo-theme 'nerd2)
+  :config
+  (progn
+    (setq neo-smart-open t)
+    (setq neo-theme (if (display-graphic-p) 'icons 'nerd))
+    (global-set-key [f8] 'neotree-toggle)))
+
+;; Start nyan-mode
+(nyan-mode t)
+(nyan-start-animation) ;; Start animation (cpu costly)
+
+;; M-x highlight-indent-guides-mode
+;; Nice interface but quite slow when the file is large
+(require 'highlight-indent-guides)
+;; (set 'highlight-indent-guides-method 'bitmap)
+(set 'highlight-indent-guides-responsive 'top)
+
+;; M-x highlight-indentation-mode
+;; Not so pretty but it is able to handle large file
+(require 'highlight-indentation)
+(set-face-font 'highlight-indentation-face "Arial")
+(set-face-background 'highlight-indentation-face "#808080")
+(set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
+
+;; Switch between windows faster
+(global-set-key (kbd "M-o") 'ace-window)
+
+;; SQL indent
+(add-hook 'sql-mode-hook 'sqlind-minor-mode)
+
 
 (provide 'init-global-settings)
 ;;; init-global-settings.el ends here
