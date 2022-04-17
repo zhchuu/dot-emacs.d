@@ -30,11 +30,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(misterioso))                ;; Put the theme loading in the front to avoid overriding the setting below
+ ;; '(custom-enabled-themes '(spacemacs-dark))
  '(ediff-split-windoe-function 'split-window-sensibly) ;; Split vertically or horizontally depending on window dimensions
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(package-selected-packages
-   '(lsp-mode yasnippet lsp-treemacs helm-lsp projectile flycheck company helm-xref helm-swoop helm-gtags dap-mode which-key elpy lsp-ui nyan-mode highlight-indent-guides highlight-indentation sql-indent dashboard all-the-icons smart-tab undo-tree rainbow-mode rainbow-delimiters neotree ag rg ace-window))
+   '(lsp-mode yasnippet lsp-treemacs helm-lsp projectile flycheck company helm-xref helm-swoop helm-gtags dap-mode which-key elpy lsp-ui nyan-mode highlight-indent-guides highlight-indentation sql-indent dashboard all-the-icons smart-tab undo-tree rainbow-mode rainbow-delimiters neotree ag rg ace-window beacon minimap spacemacs-theme goto-chg gcmh))
  )
 
 (custom-set-faces
@@ -70,6 +71,9 @@
 ;; (scroll-bar-mode 0)
 
 ;; Display time
+(setq display-time-24hr-format t)
+(setq display-time-day-and-date t)
+(setq display-time-format "%y-%m-%d %a %H:%M")
 (display-time)
 
 ;; Show matching parenth
@@ -144,6 +148,17 @@
 ;; (define-key ctl-x-4-map "t" 'toggle-window-split)
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 
+;; Fast move to word
+(global-set-key (kbd "M-g w") 'avy-goto-word-0)
+
+;; Fast move to last change
+(global-set-key (kbd "M-g c") 'goto-last-change)
+
+;; Scroll smoothly
+(setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq scroll-margin 10)
+
 ;; The default setting is too low for lsp-mode's needs
 ;; due to the fact that client/server communication
 ;; generates a lot of memory/garbage.
@@ -154,6 +169,35 @@
 ;; considering that the some of the language server
 ;; responses are in 800k - 3M range.
 (setq read-process-output-max (* 1024 1024))  ;; 1mb
+
+;; Improve IO performance
+(setq process-adaptive-read-buffering nil)
+
+;; Improve the performace of processing long line
+(setq bidi-inhibit-bpa t)
+(setq-default bidi-display-reordering 'left-to-right)
+(setq-default bidi-paragraph-direction 'left-to-right)
+
+;; Auto fontify time
+(setq jit-lock-defer-time nil)
+(setq jit-lock-context-time 0.1)
+(setq fast-but-imprecise-scrolling nil)
+(setq redisplay-skip-fontification-on-input nil)
+
+;; Screen update time
+(setq idle-update-delay 0.1)
+
+;; Cache of font
+(setq inhibit-compacting-font-caches t)
+
+;; Garbage Collector Magic Hack
+(use-package gcmh
+  :demand
+  :init
+  (setq gcmh-idle-delay 5)
+  (setq gcmh-high-cons-threashold (* 64 1024 1024))
+  (gcmh-mode 1)
+  (gcmh-set-high-threshold))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Some third-party mods are turned on by default
@@ -221,6 +265,13 @@
 
 ;; SQL indent
 (add-hook 'sql-mode-hook 'sqlind-minor-mode)
+
+(beacon-mode 1)
+
+(set-face-attribute 'mode-line nil
+                    :box nil
+                    :overline "dark grey"
+                    :underline "dark grey")
 
 
 (provide 'init-global-settings)

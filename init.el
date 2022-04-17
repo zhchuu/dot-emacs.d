@@ -17,6 +17,13 @@
 (require 'init-helm)
 (require 'init-projectile)
 (require 'init-dashboard)
+(require 'init-tramp)
+
+(add-hook 'after-init-hook
+          #'(lambda ()
+              (message "Loading time: %s."
+                       (float-time
+                        (time-subtract after-init-time before-init-time)))))
 
 
 (provide 'init)
