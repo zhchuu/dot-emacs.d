@@ -4,16 +4,15 @@
 ;;; Code:
 
 (use-package helm-swoop)
-;; (use-package helm-gtags)
 (use-package helm
   :diminish helm-mode
   :init
   (progn
     (setq helm-candiate-number-limit 100)
     ;; https://gist.github.com/antifuchs/9238468
-    (setq helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
-          helm-input-idle-delay 0.01  ; this actually updates things
-                                        ; reeeelatively quickly.
+    (setq helm-idle-delay 0.0  ;; update fast sources immediately (doesn't).
+          helm-input-idle-delay 0.01  ;; this actually updates thingsreeeelatively quickly.
+          helm-yas-display-key-on-candidate t
           helm-quick-update t
           helm-M-x-requires-pattern nil
           helm-ff-skip-boring-files t)

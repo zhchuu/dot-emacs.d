@@ -1,23 +1,37 @@
-;;; init.el --- Load the full configuration (Emacs version: 26.3)
+;;; init.el --- Load the full configuration (Emacs version: 27.2+)
 ;;; Commentary:
 
-;; Load all configuration.
-
-
 ;; Code:
+
+(toggle-debug-on-error)
+(setq package-enable-at-startup nil)
 
 ;; Add lisp/ directory to load-path
 (add-to-list 'load-path (expand-file-name "inits" user-emacs-directory))
 
-;; Set default font size
-(set-default-font "Monaco 15")
+;; Mac specific key bindings
+;; You may delete these if you don't want it.
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'nil)
+  )
 
+;; Set default font size
+;; You may delete these if you don't want it.
+(add-to-list 'default-frame-alist '(font . "Monaco 10"))
+(set-face-attribute 'default t :font "Monaco 10")
+
+;; Init
 (require 'init-elpa)
 (require 'init-global-settings)
+
+;; Plugins
+(require 'init-dashboard)
 (require 'init-helm)
 (require 'init-projectile)
-(require 'init-dashboard)
 (require 'init-tramp)
+
+;; TODO: Langs
 
 (add-hook 'after-init-hook
           #'(lambda ()

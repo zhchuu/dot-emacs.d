@@ -1,8 +1,6 @@
 ;;; init-tramp.el -- Some config of tramp mode
 ;;; Commentary:
 
-;;;
-
 ;;; Code:
 
 (use-package tramp
@@ -18,6 +16,7 @@
   ;; Backup (file~) disabled and auto-save (#file#) locally to prevent delays in editing remote files
   ;; https://stackoverflow.com/a/22077775
   (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil)))
+
 
 (provide 'init-tramp)
 ;;; init-tramp.el ends here

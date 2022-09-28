@@ -17,15 +17,15 @@
   ;; To show info about the packages loaded and the init time
   (setq dashboard-set-init-info t)
   ;; To customize which widgets are displayed
-  (setq dashboard-items '((recents . 30)
-                          (projects . 15)
+  (setq dashboard-items '((recents . 20)
+                          (projects . 10)
                           (agenda . 5)))
   ;; Footer message
   (setq dashboard-footer-messages '("chhzhong's emacs"))
-;;   (setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
-;;                                                      :height 1.1
-;;                                                      :v-adjust -0.05
-;;                                                      :face 'font-lock-keyword-face))
+  (setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
+                                                     :height 1.1
+                                                     :v-adjust -0.05
+                                                     :face 'font-lock-keyword-face))
   )
 
 
