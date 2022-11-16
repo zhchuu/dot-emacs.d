@@ -9,7 +9,7 @@
 		 highlight-indentation sql-indent dashboard all-the-icons smart-tab undo-tree
 		 rainbow-mode rainbow-delimiters neotree ag rg ace-window goto-chg gcmh beacon
 		 spacemacs-theme auto-complete protobuf-mode json-mode minimap all-the-icons
-		 origami xcscope go-mode expand-region))
+		 origami xcscope go-mode expand-region symbol-overlay))
 
 (load-theme 'spacemacs-dark t)
 
@@ -349,6 +349,11 @@
 
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
+
+(use-package symbol-overlay
+  :bind (("M-i" . symbol-overlay-put)
+         ("M-n" . symbol-overlay-switch-forward)
+         ("M-p" . symbol-overlay-switch-backward)))
 
 
 (provide 'init-global-settings)
