@@ -4,12 +4,12 @@
 ;; Code:
 
 (setq package-selected-packages
-      '(lsp-mode yasnippet lsp-treemacs helm-lsp projectile flycheck company helm-xref helm-swoop
-		 helm-gtags dap-mode which-key elpy lsp-ui nyan-mode highlight-indent-guides
-		 highlight-indentation sql-indent dashboard all-the-icons smart-tab undo-tree
-		 rainbow-mode rainbow-delimiters neotree ag rg ace-window goto-chg gcmh beacon
-		 spacemacs-theme auto-complete protobuf-mode json-mode minimap all-the-icons
-		 origami xcscope go-mode expand-region symbol-overlay))
+      '(lsp-mode yasnippet lsp-treemacs helm-lsp projectile flycheck company helm-xref
+                 helm-swoop helm-gtags dap-mode which-key elpy lsp-ui highlight-indent-guides
+                 highlight-indentation sql-indent all-the-icons smart-tab undo-tree rainbow-mode
+                 rainbow-delimiters neotree ag rg ace-window goto-chg gcmh beacon spacemacs-theme
+                 auto-complete protobuf-mode json-mode minimap all-the-icons origami xcscope
+                 go-mode expand-region symbol-overlay helm-ag swiper-helm))
 
 (load-theme 'spacemacs-dark t)
 
@@ -298,10 +298,6 @@
     (global-set-key [f8] 'neotree-toggle)
     ))
 
-;; Animated progress bar
-(use-package nyan-mode
-  :config
-  (nyan-mode t))
 
 ;; M-x highlight-indent-guides-mode
 ;; Nice interface but quite slow when the file is large

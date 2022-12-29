@@ -26,7 +26,6 @@
 (require 'init-global-settings)
 
 ;; Plugins
-(require 'init-dashboard)
 (require 'init-helm)
 (require 'init-projectile)
 (require 'init-tramp)

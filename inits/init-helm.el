@@ -21,7 +21,8 @@
   (progn
     )
   :bind
-  (("C-c s" . helm-swoop)
+  (("C-c s" . swiper-helm)
+   ("C-c r" . helm-recentf)
    ("C-x C-f" . helm-find-files)
    ("C-x b" . helm-buffers-list)
    ("M-y" . helm-show-kill-ring)
