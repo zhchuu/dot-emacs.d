@@ -19,8 +19,7 @@
    citre-ctags-program "/opt/homebrew/bin/ctags"
    ;; Set this if you use project management plugin like projectile.  It's
    ;; used for things like displaying paths relatively, see its docstring.
-   citre-project-root-function #'projectile-project-root
-   ;; Set this if you want to always use one location to create a tags file.
+   ;; citre-project-root-function #'projectile-project-root
    citre-use-project-root-when-creating-tags t
    citre-prompt-language-for-ctags-command t
    citre-auto-enable-citre-mode-modes '(prog-mode))
