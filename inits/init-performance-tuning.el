@@ -47,4 +47,4 @@
 
 
 (provide 'init-performance-tuning)
-;;; init-performance-tuning ends here
+;;; init-performance-tuning.el ends here

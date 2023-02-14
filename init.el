@@ -30,6 +30,7 @@
 (require 'init-helm)
 (require 'init-projectile)
 (require 'init-tramp)
+(require 'init-citre)
 
 ;; TODO: Langs
 
