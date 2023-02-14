@@ -23,6 +23,8 @@
                       default-directory
                       dired-directory))
       ad-do-it))
+  ;; Disable automatic project detection
+  (setq projectile-track-known-projects-automatically nil)
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :config

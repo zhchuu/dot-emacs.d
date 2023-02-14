@@ -24,6 +24,7 @@
 ;; Init
 (require 'init-elpa)
 (require 'init-global-settings)
+(require 'init-performance-tuning)
 
 ;; Plugins
 (require 'init-helm)
