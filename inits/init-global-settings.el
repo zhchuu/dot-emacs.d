@@ -170,7 +170,21 @@
    (if this-win-2nd (other-window 1))
    (set-window-point (next-window) next-win-point)))))
 
+;; Toggle window swap
+(defun toggle-window-swap ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (next-win-point (window-point (next-window))))
+        (set-window-buffer (selected-window) next-win-buffer)
+        (set-window-buffer (next-window) this-win-buffer)
+        (other-window 1)
+        (set-window-point (next-window) next-win-point))))
+
 (global-set-key (kbd "C-x |") 'toggle-window-split)
+
+(global-set-key (kbd "C-x \\") 'toggle-window-swap)
 
 ;; Fast move to word
 (global-set-key (kbd "M-g w") 'avy-goto-word-0)
