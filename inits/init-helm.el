@@ -26,7 +26,8 @@
    ("C-x C-f" . helm-find-files)
    ("C-x b" . helm-buffers-list)
    ("M-y" . helm-show-kill-ring)
-   ("M-x" . helm-M-x))
+   ("M-x" . helm-M-x)
+   ("C-c m" . helm-imenu))
   )
 
 
