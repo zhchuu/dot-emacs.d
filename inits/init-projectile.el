@@ -31,6 +31,13 @@
   (projectile-global-mode)
   )
 
+(defun zhchuu/projectile-do-ag ()
+  (interactive)
+  (helm-do-ag (projectile-project-root))
+  )
+
+(global-set-key (kbd "C-x w") 'zhchuu/projectile-do-ag)
+
 
 (provide 'init-projectile)
 ;; init-projectile.el ends here
