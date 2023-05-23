@@ -9,11 +9,10 @@
 ;; Download package.el and put to lisp/ if Emacs version < 24
 (require 'package)
 
-;; Tuna
-(setq package-archives '(("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-                         ("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                         ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/stable-melpa/")))
+;; USTC
+(setq package-archives '(("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+                         ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
+                         ("nongnu" . "https://mirrors.ustc.edu.cn/elpa/nongnu/")))
 
 ;; Force to initialize ELPA
 ;; Run M-x package-refresh-contents command when facing package not found error
