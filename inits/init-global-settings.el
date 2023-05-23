@@ -193,11 +193,12 @@
 (global-set-key (kbd "M-g c") 'goto-last-change)
 
 ;; Rename current file
-(defun rename-this-file-and-buffer (new-name)
+(defun rename-this-file-and-buffer ()
   "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
+  (interactive)
+  (let* ((name (buffer-name))
+         (filename (buffer-file-name))
+         (new-name (read-string "New name: " name)))
     (unless filename
       (error "Buffer '%s' is not visiting a file!" name))
     (progn
