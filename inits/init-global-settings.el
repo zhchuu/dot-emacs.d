@@ -218,13 +218,6 @@
     (delete-file (buffer-file-name))
     (kill-this-buffer)))
 
-(use-package origami
-  :config
-  (origami-mode)
-  :bind
-  ("C-c f" . origami-recursively-toggle-node)
-  ("C-c F" . origami-toggle-all-nodes))
-
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Some third-party modes
@@ -234,19 +227,6 @@
 (use-package which-key
   :config
   (which-key-mode))
-
-;; Undotree
-;; C-x u -> undo-tree-visualize
-;; (use-package undo-tree
-;;   :init
-;;   (setq undo-tree-visualizer-timestamps t)
-;;   (setq undo-tree-visualizer-diff t)
-;;   (setq undo-tree-auto-save-history nil)
-;;   :config
-;;   (progn
-;;     (global-undo-tree-mode)
-;;     )
-;;   )
 
 ;; Rainbow mode
 (use-package rainbow-mode
@@ -271,7 +251,6 @@
     (global-set-key [f8] 'neotree-toggle)
     ))
 
-
 ;; M-x highlight-indent-guides-mode
 ;; Nice interface but quite slow when the file is large
 (use-package highlight-indent-guides
@@ -281,22 +260,9 @@
   (set 'highlight-indent-guides-suppress-auto-error t)
   (set 'highlight-indent-guides-delay 0.1))
 
-;; M-x highlight-indent-mode
-;; Not so pretty but it is able to handle large file
-;; (use-package highlight-indentation
-;;   :init
-;;   (set-face-font 'highlight-indentation-face "Arial")
-;;   (set-face-background 'highlight-indentation-face "#808080")
-;;   (set-face-background 'highlight-indentation-current-column-face "#c3b3b3"))
-
 ;; Switch between windows faster
 (use-package ace-window
   :bind ("M-o" . ace-window))
-
-;; Hightlight cursor
-(use-package beacon
-  :config
-  (beacon-mode 1))
 
 (use-package minimap
   :init
@@ -315,9 +281,6 @@
   (setq cscope-index-recursively 1)
   :config
   (cscope-setup))
-
-(use-package expand-region
-  :bind ("C-=" . er/expand-region))
 
 (use-package symbol-overlay
   :bind (("M-i" . symbol-overlay-put)
